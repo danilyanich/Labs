@@ -1,6 +1,16 @@
 package com.danilyanich;
 
+import java.util.DoubleSummaryStatistics;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 class Complex {
+
+    public static Pattern PATTERN = Pattern.compile("((-?\\d*\\.?\\d+)( *)(\\+|-)( *)(\\d*\\.?\\d+)( *\\*? *)i)|((-?\\d*\\.?\\d+)( *\\*? *)\\(cos\\((-?\\d*\\.?\\d+)\\)( *\\+ *)i( *\\*? *)sin\\((-?\\d*\\.?\\d+)\\)\\))|((-?\\d*\\.?\\d+)?( *\\*? *)exp\\((-?\\d*\\.?\\d+)( *\\*? *)i\\))");
+    public static Pattern POLAR = Pattern.compile("((-? *\\d*\\.?\\d+)( *\\*? *)\\(( *)cos\\((-? *\\d*\\.?\\d+)\\)( *\\+ *)i( *\\*? *)sin\\((-? *\\d*\\.?\\d+)\\)\\))");
+    public static Pattern RECTANGULAR = Pattern.compile("((-? *\\d*\\.?\\d+)( *)(\\+|-)( *)(\\d*\\.?\\d+)( *\\*? *)i)");
+    public static Pattern EXPONENTIAL = Pattern.compile("((-? *\\d*\\.?\\d+)?( *\\*? *)exp\\((-? *\\d*\\.?\\d+)( *\\*? *)i\\))");
 
     enum Form {
         POLAR, RECTANGULAR, EXPONENTIAL
@@ -14,8 +24,6 @@ class Complex {
         return sin < 0 ? acos + Math.PI : acos;
     }
 
-    private final static double twoPI = Math.PI * 2;
-
     public static Complex polar(double radius, double angle) {
         return new Complex(radius, angle, Form.POLAR);
     }
@@ -28,6 +36,47 @@ class Complex {
         return new Complex(radius, angle, Form.EXPONENTIAL);
     }
 
+    public static Complex parseComplex(String string) throws Exception {
+        if (!string.matches(PATTERN.pattern()))
+            throw new Exception("no match!");
+        Pattern _value = Pattern.compile("(-? *\\d*\\.?\\d+)");
+        Matcher matcher = _value.matcher(string);
+        double first, second;
+        if (string.matches(RECTANGULAR.pattern())) {
+            if (matcher.find()) {
+                first = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                if (matcher.find()) {
+                    second = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                    return Complex.rectangular(first, second);
+                }
+            }
+            throw new Exception("kek, wrong string");
+        } else if (string.matches(EXPONENTIAL.pattern())) {
+            if (matcher.find()) {
+                first = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                if (matcher.find()) {
+                    second = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                    return Complex.exponencial(first, second);
+                }
+            }
+            throw new Exception("kek, wrong string");
+        } else if (string.matches(POLAR.pattern())) {
+            if (matcher.find()) {
+                first = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                if (matcher.find()) {
+                    second = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                    if (matcher.find()){
+                        double third = Double.parseDouble(matcher.group().replaceAll(" +", ""));
+                        if(second == third){
+                            return Complex.polar(first,second);
+                        }
+                    }
+                } else throw new Exception("kek, wrong string");
+            }
+        }
+        throw new Exception("kek, no match");
+    }
+
     private Complex(double rad_real, double ang_imag, Form form) {
         if (form == Form.RECTANGULAR) {
             this.real = rad_real;
@@ -36,6 +85,11 @@ class Complex {
             this.real = rad_real * Math.cos(ang_imag);
             this.imag = rad_real * Math.sin(ang_imag);
         }
+    }
+
+    public Complex() {
+        this.real = 0;
+        this.imag = 0;
     }
 
     public Complex copy() {
@@ -121,6 +175,11 @@ class Complex {
             }
         }
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return toString(Form.RECTANGULAR);
     }
 }
 
