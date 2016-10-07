@@ -2,12 +2,10 @@ package com.danilyanich;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -51,11 +49,12 @@ public class Main {
 
     static void testParser() {
         System.out.println("test complex parser:");
+        System.out.println(Complex.PATTERN.pattern());
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         List<Complex> list = new ArrayList<>();
         String string;
         try {
-            while (!Objects.equals(string = input.readLine(), "")) {
+            while (!(string = input.readLine()).equals("")) {
                 Matcher matcher = Complex.PATTERN.matcher(string);
                 while (matcher.find())
                     try {
@@ -69,9 +68,13 @@ public class Main {
             e.printStackTrace();
             System.out.println();
         }
+
         System.out.println();
         for (Complex c : list) {
-            System.out.println(c.toString() + " ");
+            System.out.println(c.toString(Complex.Form.RECTANGULAR));
+            System.out.println(c.toString(Complex.Form.EXPONENTIAL));
+            System.out.println(c.toString(Complex.Form.POLAR));
+            System.out.println();
         }
         System.out.println();
     }

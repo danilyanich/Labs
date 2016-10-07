@@ -21,7 +21,7 @@ class Complex {
 
     private static double getAngleBySinCos(double sin, double cos) {
         double acos = Math.acos(cos);
-        return sin < 0 ? acos + Math.PI : acos;
+        return sin < 0 ? Math.PI - acos : acos;
     }
 
     public static Complex polar(double radius, double angle) {
