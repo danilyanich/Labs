@@ -184,5 +184,28 @@ file:/home/danilyanich/Projects/Java/Projects/Labs/Lab5/src/com/danilyanich/Main
 Yo guys? w'sup! kek-lol some-what.
 sudo apt-get install vim --reinstall
 >
-kek
+:danilyanich!dankr@bsu PRIVMSG :Hello world!
+WHOIS dankr
+:bsu.by INVITE dankr
+:user!abc@test PRIVMSG #chat :Test
 >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

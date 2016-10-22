@@ -51,7 +51,7 @@ public class Main {
         }
         System.out.print(output);
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -65,7 +65,7 @@ public class Main {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -79,7 +79,7 @@ public class Main {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -93,7 +93,7 @@ public class Main {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -124,7 +124,7 @@ public class Main {
             }
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -138,7 +138,7 @@ public class Main {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -152,7 +152,7 @@ public class Main {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -202,7 +202,7 @@ public class Main {
             }
         }
 
-        bonus += 1d/pattern.pattern().length();
+        bonus += 1d / pattern.pattern().length();
     }
 
     /**
@@ -211,9 +211,38 @@ public class Main {
     private static void point9() {
         System.out.println(BG + "9 Выбрать правильно сформированное IRC сообщение." + RE);
         String string;
-        Pattern pattern = Pattern.compile("");
+        Pattern pattern = Pattern.compile("^(:(?<prefix>(?<servername>([\\w^_\\d]{2,}\\.)+[\\w^_\\d]{2,})|(?<nick>\\w+)(!(?<user>\\w+))?(@(?<host>\\w+))?)\\s+)?(?<command>\\w+|\\d{3})(?<params>(\\s+(?<target>(?<to>[#&](?<channel>\\w+)|\\k<user>@\\k<servername>|\\k<nick>|(?<mask>[#&]\\w+))(,\\k<target>)?))?\\s+(:(?<trailing>.*)|(?<!:)(?<middle>\\S+)))$");
         while (!(string = scanner.nextLine()).equals(">")) {
-            System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
+            Matcher matcher = pattern.matcher(string);
+            System.out.println("\u001b[36m" + string + RE);
+            if (matcher.find()) {
+                if (matcher.group("prefix") != null)
+                    System.out.println("prefix: " + matcher.group("prefix"));
+                if (matcher.group("servername") != null)
+                    System.out.println("servername: " + matcher.group("servername"));
+                if (matcher.group("nick") != null)
+                    System.out.println("nick: " + matcher.group("nick"));
+                if (matcher.group("user") != null)
+                    System.out.println("user: " + matcher.group("user"));
+                if (matcher.group("host") != null)
+                    System.out.println("host: " + matcher.group("host"));
+                if (matcher.group("command") != null)
+                    System.out.println("command: " + matcher.group("command"));
+                if (matcher.group("params") != null)
+                    System.out.println("params: " + matcher.group("params"));
+                if (matcher.group("target") != null)
+                    System.out.println("target: " + matcher.group("target"));
+                if (matcher.group("to") != null)
+                    System.out.println("to: " + matcher.group("to"));
+                if (matcher.group("channel") != null)
+                    System.out.println("channel: " + matcher.group("channel"));
+                if (matcher.group("mask") != null)
+                    System.out.println("mask: " + matcher.group("mask"));
+                if (matcher.group("trailing") != null)
+                    System.out.println("trailing: " + matcher.group("trailing"));
+                if (matcher.group("middle") != null)
+                    System.out.println("middle: " + matcher.group("middle"));
+            }
         }
 
         //bonus += 1d/pattern.pattern().length();
