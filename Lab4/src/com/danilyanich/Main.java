@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -15,8 +14,9 @@ public class Main {
         testParser();
     }
 
-    static void pureviewOperators() {
+    private static void pureviewOperators() {
         System.out.println("see how operators work:");
+
         Complex a = Complex.rectangular(4, 2);
         Complex b = Complex.polar(1, Math.PI / 4);
         Complex c = Complex.rectangular(0, 1);
@@ -47,7 +47,7 @@ public class Main {
         System.out.println();
     }
 
-    static void testParser() {
+    private static void testParser() {
         System.out.println("test complex parser:");
         System.out.println(Complex.PATTERN.pattern());
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
