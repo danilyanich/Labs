@@ -102,7 +102,7 @@ public class Main {
     private static void point5() {
         System.out.println(BG + "5 Написать регулярное выражение определяющее является ли данная строчка валидным URL адресом." + RE);
         String string;
-        Pattern pattern = Pattern.compile("((?<scheme>https?)://)?(?<host>([\\w^_\\d]{2,}\\.)+[\\w^_\\d]{2,})(:(?<port>[\\d]+))?(/(?<path>(\\w+/)*\\w+\\.?\\w*))?(\\?(?<query>(\\w+=\\w+[&;])*\\w+=\\w+))?([#%](?<fragment>\\w+))?");
+        Pattern pattern = Pattern.compile("((?<scheme>https?)://)?(?<host>([\\w^_\\d]{2,}\\.)*[\\w^_\\d]{2,})(:(?<port>[\\d]+))?(/(?<path>(\\w+/)*\\w+\\.?\\w*))?(\\?(?<query>(\\w+=\\w+[&;])*\\w+=\\w+))?([#%](?<fragment>\\w+))?");
         while (!(string = scanner.nextLine()).equals(">")) {
             System.out.println((string.matches(pattern.pattern()) ? BLUE + "+" + RE : RED + "-" + RE) + "\t" + string);
             if (string.matches(pattern.pattern())) {
@@ -245,6 +245,6 @@ public class Main {
             }
         }
 
-        //bonus += 1d/pattern.pattern().length();
+        bonus += 1d/pattern.pattern().length();
     }
 }
