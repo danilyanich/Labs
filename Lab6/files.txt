@@ -1,0 +1,2 @@
+/kek.txt
+/dir1/dir2/file.txt
