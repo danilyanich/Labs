@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Comparator;
 
 /**
  * Лабораторная работа 6. Работа с файловыми и потоками.
@@ -72,23 +73,30 @@ public class Main {
 
         file = new File(ROOT + "files.txt");
         final Object[] capture = {root, dir, nestingLevel(root)};
-        new BufferedReader(new FileReader(file)).lines().forEach(line -> {
-            File path = new File("" + capture[1] + File.separator + line);
-            try {
-                path.getParentFile().mkdirs();
-                path.createNewFile();
-                check(path.isFile());
-                Integer level = nestingLevel(path) - (Integer) capture[2];
-                FileWriter writer = new FileWriter(path);
-                String endl = System.lineSeparator();
-                writer.write(path.getAbsolutePath() + endl);
-                writer.write(level + endl);
-                writer.write(poem[level - 1] + endl);
-                writer.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        new BufferedReader(new FileReader(file))
+                .lines()
+                .sorted(Comparator.reverseOrder())
+                .forEach(line -> {
+                    File path = new File("" + capture[1] + File.separator + line);
+                    try {
+                        if (!path.getAbsolutePath().matches(".+\\..+")) {
+                            path.mkdirs();
+                            return;
+                        }
+                        path.getParentFile().mkdirs();
+                        path.createNewFile();
+                        check(path.isFile());
+                        Integer level = nestingLevel(path) - (Integer) capture[2];
+                        FileWriter writer = new FileWriter(path);
+                        String endl = System.lineSeparator();
+                        writer.write(path.getAbsolutePath() + endl);
+                        writer.write(level + endl);
+                        writer.write(poem[level % poem.length - 1] + endl);
+                        writer.flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     private static int nestingLevel(File file) {

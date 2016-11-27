@@ -1,2 +1,4 @@
-/kek.txt
+/kek.txt/kek1/kek1.txt
+/kek.txt/kek
 /dir1/dir2/file.txt
+/dir/fileornot
