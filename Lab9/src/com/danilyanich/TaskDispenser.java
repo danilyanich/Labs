@@ -76,7 +76,7 @@ public class TaskDispenser extends Thread {
                     }
                 }
             }
-            executorService.shutdown();
         }
+        executorService.shutdown();
     }
 }

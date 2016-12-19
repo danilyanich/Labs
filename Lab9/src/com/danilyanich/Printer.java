@@ -28,12 +28,12 @@ public class Printer implements Runnable {
 
     public synchronized boolean setTask(String task) {
         if (this.task == null) {
-            System.out.println("Printer " + name + " got task \"" + task+"\".");
+            System.out.println("Printer " + name + " got task \"" + task + "\".");
             this.task = task;
             this.notifyAll();
             return true;
         }
-        System.out.println("Printer " + name + " got task \"" + task+"\", but already has one.");
+        System.out.println("Printer " + name + " got task \"" + task + "\", but already has one.");
         return false;
     }
 
@@ -50,7 +50,7 @@ public class Printer implements Runnable {
                         fileWriter.write(task);
                         fileWriter.write(System.lineSeparator());
                         fileWriter.flush();
-                        Thread.sleep((long) (DELAY * Math.random()));
+                        Thread.sleep((long) ((Math.random() / 2 + 0.5) * DELAY));
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
