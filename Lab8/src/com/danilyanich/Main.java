@@ -36,7 +36,7 @@ public class Main {
 
         Thread thread3 = new Thread(() -> {
             juices.forEach(Collections::sort);
-            int count = 1;
+            int count = 0;
             List<List<String>> list = new ArrayList<>(juices);
             Collections.sort(list, (l1, l2) -> l1.size() - l2.size());
             while (!list.isEmpty()) {
